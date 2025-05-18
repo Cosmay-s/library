@@ -1,13 +1,7 @@
 from sqlalchemy.orm import Session
 from library_api.models import User
 from library_api.schemas import UserCreate
-from passlib.context import CryptContext
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-
-def hash_password(password: str) -> str:
-    return pwd_context.hash(password)
+from library_api.auth.password import hash_password 
 
 
 def create_user(db: Session, user: UserCreate):
