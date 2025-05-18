@@ -7,7 +7,20 @@ class User(BaseModel):
     password: str
 
 
+class UserCreate(BaseModel):
+    email: EmailStr
+    password: str
+
+
 class Book(BaseModel):
+    title: str
+    author: str
+    year_published: Optional[int] = None
+    isbn: Optional[str] = None
+    copies_count: int
+
+
+class BookCreate(BaseModel):
     title: str
     author: str
     year_published: Optional[int] = None
