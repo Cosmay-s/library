@@ -1,7 +1,25 @@
 from fastapi import FastAPI
-from library_api.routers import book, borrow, reader, user
+from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+from library_api.routers import book, borrow, reader, user
+from library_api.db import init_db
+
+app = FastAPI(
+    title="Library API",
+    description="RESTful API для управления библиотекой",
+    version="1.0.0",
+)
+
+
+init_db()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Регистрация роутов
 app.include_router(user.router, prefix="/users", tags=["users"])
