@@ -6,7 +6,7 @@ from datetime import datetime
 def borrow_book(db: Session, book_id: int, reader_id: int):
     book = db.query(Book).filter(Book.id == book_id).first()
     if not book or book.copies_count <= 0:
-        return None 
+        return None
 
     borrowed_count = db.query(BorrowedBook).filter(
         BorrowedBook.reader_id == reader_id,
