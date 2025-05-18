@@ -7,7 +7,7 @@ from library_api.db import init_db
 app = FastAPI(
     title="Library API",
     description="RESTful API для управления библиотекой",
-    version="1.0.0",
+    version="0.0.1",
 )
 
 
