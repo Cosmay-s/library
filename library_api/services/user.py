@@ -14,7 +14,7 @@ def register_user(db: Session, user_data: UserCreate):
 # Аутентификация пользователя
 def authenticate_user(db: Session, email: str, password: str):
     db_user = user_repo.get_user_by_email(db, email)
-    if not db_user or db_user.password != password:  # Сравниваем пароли в открытом виде
+    if not db_user or db_user.password != password:
         return None
 
     return "fake-token"  # Возвращаем фиктивный токен для демонстрации
