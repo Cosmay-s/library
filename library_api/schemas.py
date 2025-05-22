@@ -2,14 +2,20 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional
 
 
-class User(BaseModel):
-    email: EmailStr
-    password: str
-
-
+# Схема для регистрации пользователя
 class UserCreate(BaseModel):
     email: EmailStr
-    password: str
+    password: str  # Пароль в открытом виде, который будет передан от клиента
+
+    class Config:
+        orm_mode = True
+
+# Схема для данных пользователя (после создания)
+class User(BaseModel):
+    email: EmailStr
+
+    class Config:
+        orm_mode = True
 
 
 class Book(BaseModel):

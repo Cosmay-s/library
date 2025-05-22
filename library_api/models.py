@@ -13,7 +13,7 @@ class User(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     email: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=False)
-    password_hash: Mapped[str] = mapped_column(nullable=False)
+    password: Mapped[str] = mapped_column(nullable=False)  # Храним пароль в открытом виде
     created_at: Mapped[datetime] = mapped_column(default=lambda: datetime.now(tz=UTC))
     updated_at: Mapped[datetime] = mapped_column(default=lambda: datetime.now(tz=UTC),
                                                  onupdate=lambda: datetime.now(tz=UTC))
