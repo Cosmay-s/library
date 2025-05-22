@@ -8,14 +8,15 @@ class UserCreate(BaseModel):
     password: str  # Пароль в открытом виде, который будет передан от клиента
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+
 
 # Схема для данных пользователя (после создания)
 class User(BaseModel):
     email: EmailStr
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class Book(BaseModel):

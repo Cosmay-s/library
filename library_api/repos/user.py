@@ -9,10 +9,11 @@ def create_user(db: Session, user: UserCreate):
     # Проверяем, существует ли пользователь с таким email
     db_user = db.query(User).filter(User.email == user.email).first()
     if db_user:
-        raise HTTPException(status_code=400, detail="Пользователь с таким email уже существует")
+        raise HTTPException(status_code=400,
+                            detail="Пользователь с таким email уже существует")
 
     # Создаем нового пользователя
-    db_user = User(email=user.email, password=user.password)  # Пароль в открытом виде (без хеширования)
+    db_user = User(email=user.email, password=user.password)
     db.add(db_user)
     db.commit()  # Подтверждаем изменения
     db.refresh(db_user)  # Обновляем объект, чтобы получить id пользователя
