@@ -18,7 +18,6 @@ def init_db():
     Base.metadata.create_all(bind=engine)
 
 
-@contextmanager
 def get_db() -> Session:
     db = SessionLocal()
     try:

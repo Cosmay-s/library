@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from library_api.schemas import BookCreate
 from library_api.services.book import create_book_service, get_books_service, get_book_by_id_service, update_book_service, delete_book_service
@@ -25,20 +25,20 @@ async def get_book_by_id(book_id: int, db: Session = Depends(get_db)):
     book = get_book_by_id_service(db, book_id)
     if book:
         return {"book": book}
-    return {"message": "Book not found"}, 404
+    raise HTTPException(status_code=404, detail="Книга не найдена.")
 
 
 @router.put("/{book_id}")
 async def update_book(book_id: int, updated_book: BookCreate, db: Session = Depends(get_db)):
-    db_book = update_book_service(db, book_id, updated_book)
-    if db_book:
-        return {"message": f"Book '{db_book.title}' updated successfully", "book": db_book}
+    book = update_book_service(db, book_id, updated_book)
+    if book:
+        return {"message": f"Book '{book.title}' updated successfully", "book": book}
     return {"message": "Book not found"}, 404
 
 
 @router.delete("/{book_id}")
 async def delete_book(book_id: int, db: Session = Depends(get_db)):
-    db_book = delete_book_service(db, book_id)
-    if db_book:
-        return {"message": f"Book '{db_book.title}' deleted successfully"}
-    return {"message": "Book not found"}, 404
+    book = delete_book_service(db, book_id)
+    if book:
+        return {"Удалена книга": book}
+    raise HTTPException(status_code=404, detail="Книга не найдена.")
